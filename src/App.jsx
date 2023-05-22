@@ -1,15 +1,27 @@
 import React from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import RateForm from "./RateForm";
+import ThankYou from "./ThankYou";
 
-function App() {
+function App(){
+  const [rate, setRate] = useState("");
+  let navigate = useNavigate();
+
+  const submit = (ratingLV) => {
+    console.log(ratingLV)
+    setRate(ratingLV)
+    navigate("submit")
+  }
+
   return (
     <main>
-      <div></div>
-      {/* <footer class="attribution">
-        Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-        Coded by <a href="/#">Your Name Here</a>.
-      </footer> */}
+      <Routes>
+        <Route path="/" element={<RateForm submitFunc={submit}/>}></Route>
+        <Route exact path="/submit" element={<ThankYou rate={rate}/>}></Route>
+      </Routes>
     </main>
-  );
+  )
 }
 
 export default App;
